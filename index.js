@@ -3,27 +3,14 @@
 var child = require('child_process');
 
 var catp = child.spawn('cat',['/Users/bbarrows/.zshrc']);
-var grepp = child.spawn('grep', ['bbarrows']);
-
-// myREPL.stdout.pipe(process.stdout, { end: false });
-
-// process.stdin.resume();
-
-// process.stdin.pipe(myREPL.stdin, { end: false });
-
-// myREPL.stdin.on('end', function() {
-//   process.stdout.write('REPL stream ended.');
-// });
-
-// myREPL.on('exit', function (code) {
-//   process.exit(code);
-// });
+var grepp = child.spawn('grep', ['BBARROWS']);
 
 
 
 catp.stdout.on('data', (data) => {
     // console.log(`Received chunk ${data}`);
-    grepp.stdin.write(data);
+    grepp.stdin.write(Buffer.from(data.toString().toUpperCase()));
+    // grepp.stdin.write(data);
 });
 
 catp.stdin.on('end', function () {
